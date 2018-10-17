@@ -1,0 +1,33 @@
+html, body, .container-fluid {
+  background-color: #D6D8DC;
+}
+
+.text-input {
+  font-size: 16px;
+}
+
+.hash-output {
+  color: #575B5E;
+  font-size: 16px;
+  letter-spacing: 2px;
+  white-space: pre-wrap;
+}
+
+.hash-heading {
+  color: #6699bb;
+  margin-top: 0;
+  font-weight: normal;
+}
+
+.qr-container {
+  margin: 20px;
+    border: 1px solid #6699bb;
+    border-radius: 3px;
+    background: #EEE;
+    padding: 20px;
+}
+
+.qr-button {
+   padding: 0 20px;
+}
+
