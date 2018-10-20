@@ -28,15 +28,12 @@
     "ethereumjs-util": "5.2.0",
     "ethereumjs-wallet": "0.6.2",
     "jquery": "^3.3.1",
-    "jquery-next-id": "^1.0.1",
-    "jquery-prevent-scroll-keys": "^1.0.1",
-    "jquery-roving-tabindex": "^1.0.1",
-    "jquery-tabs": "^0.5.3",
     "merkle-tree-gen": "^1.1.0",
     "node-cryptojs-aes": "^0.4.0",
     "qrcode-generator": "^1.4.1",
     "secp256k1": "^3.5.2",
-    "sha256": "0.2.0"
+    "sha256": "0.2.0",
+    "tabs": "^0.2.0"
   },
   "config": {
     "forge": {

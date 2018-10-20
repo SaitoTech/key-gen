@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Saito - KeyGen - Form</title>
+
+    <!-- Stylesheets -->
+
+    <link rel="stylesheet" href="./bootstrap.min.css">
+    <link rel="stylesheet" href="./styles.css">
+
+
+    <!-- Scripts -->
+    <script src="./form.js" charset="utf-8"></script>
+
+</head>
+
+<body>
+    
+    <a name="create"></a>
+    <div id="set" class="tabs__panel" tabindex="-1">
+        <div id="container-create" class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h3 class="tabs__title">Create Keys</h3>
+                    <div class="qr-container">
+                        <h3 class="hash-heading">Public Key</h3>
+                        <pre id="pubkey-output" class="hash-output"> </pre>
+                        <div id="public-qr" class="qr"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="qr-container">
+                        <h3 class="hash-heading">Private Key</h3>
+                        <pre id="privkey-output" class="hash-output"> </pre>
+                        <h3 class="hash-heading">Seed</h3>
+                        <pre id="seed-output" class="hash-output"> </pre>
+                        <div id="private-qr" class="qr"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                    <div class="qr-button">
+                        <button rows="2" id="generate" class="form-control button">
+                            Generate Keys
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a name="retrieve"></a>
+    <div id="recover" class="tabs__panel" tabindex="-1">
+        <div id="container-recover" class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                    <h3 class="tabs__title">Restore Keys</h3>
+                    <div class="qr-container">
+                        <h3 class="hash-heading">Enter Seed</h3>
+                        <textarea rows="2" id="seed-input" class="form-control text-input" placeholder="Enter seed exactly to recover private key."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="qr-container">
+                        <h3 class="hash-heading">Private Key</h3>
+                        <pre id="privateKey-recovered" class="hash-output"> </pre>
+                        <div id="private-qr-recovered" class="qr"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
