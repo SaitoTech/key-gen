@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Generate a public/private keypair for Saito",
   "repository": "",
-  "main": "wallet/app.js",
+  "main": "app/app.js",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",

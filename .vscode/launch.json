@@ -8,7 +8,7 @@
             "type": "electron",
             "request": "launch",
             "name": "Launch Electron against the workspace",
-            "appDir": "${workspaceFolder}/app.js"
+            "appDir": "${workspaceFolder}/app/app.js"
         }
     ]
 }
