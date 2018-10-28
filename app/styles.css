@@ -27,13 +27,20 @@ html {
 
 .hash-output {
   color: #575B5E;
-  font-size: 16px;
   letter-spacing: 2px;
   white-space: pre-wrap;
+  position: relative;
+  font-size: 0.850em;
+  line-height: 2em;
 }
 
 h3 {
   font-size: 20px;
+  margin-top: 15pxpx;
+}
+
+hr {
+  margin: 10px 0;
 }
 
 .hash-heading {
@@ -106,10 +113,58 @@ h3 {
   display: block;
 }
 
-pre {
+pre, #seed-output {
   margin-right: 170px;
 }
 
-pre#seed-output {
-  min-height: 66px;
+.copy {
+  position: relative;
+  top: -52px;
+  left: 736px;
+  border: none;
+  background: none;
+}
+
+.copy img {
+  vertical-align: middle;
+  height: 24px;
+  margin-top: 6px;
+}
+
+#print {
+  height: 48px;
+  float: right;
+  margin-right: 20px;
+  margin-top: 10px;
+  border: 2px solid #336699;
+  border-radius: 56px;
+  padding: 7px;
+  width: 48px;
+}
+
+#print:hover {
+  border-color: #6699BB;
+  cursor: pointer;
+}
+
+.print {
+  display: none;
+}
+
+@media print {
+  button { 
+    display: none;
+  }
+
+  #generate { 
+    display: none;
+  }
+
+  .screen { 
+    display: none;
+  }
+
+  .print { 
+    display: block;
+  }
 }

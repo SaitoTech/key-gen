@@ -16,16 +16,18 @@
   <script>
     delete module.exports
   </script>
-  
+
   <script>window.$ = window.jQuery = require('jquery');</script>
+  <script src="../node_modules/clipboard/dist/clipboard.js" charset="utf-8"></script>
   <script src="./form.js" charset="utf-8"></script>
 </head>
 
 <body>
-  <div class="wrapper">
+  <div id="content" class="wrapper">
     <div id="header">
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+          <img id="print" src="img/print.png" alt="print">
           <div class="qr-button">
             <h1>Saito Key Generator
               <!--img src="img/Logo-blue.png" height="64px" width="64px" style="float:right"-->
@@ -38,33 +40,51 @@
         <div class="tabs">
           <a class="tab active">Generate Keys</a>
           <a class="tab">Retrieve Keys</a>
-
         </div>
         <hr />
         <div class="tab-panes">
-          <div class="tab-pane active">
+          <div id="keys" class="tab-pane active">
+            <hr class="print" />
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <h3 class="tabs__title">Create Keys</h3>
+                <h3 class="tabs__title screen">Create Keys</h3>
+                <h3 class="tabs__title print">Saito Keys</h3>
+                <hr class="print" />
                 <div class="qr-container">
                   <div id="public-qr" class="qr"></div>
                   <h3 class="hash-heading">Public Key</h3>
-                  <pre id="pubkey-output" class="hash-output"> </pre>
+                  <div class="output">
+                    <pre id="pubkey-output" class="hash-output"> </pre>
+                    <button class="copy" data-clipboard-target="#pubkey-output">
+                      <img src="img/copy.png" alt="Copy to clipboard">
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
+            <hr class="print" />
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="qr-container">
                   <div id="private-qr" class="qr"></div>
                   <h3 class="hash-heading">Private Key</h3>
-                  <pre id="privkey-output" class="hash-output"> </pre>
+                  <div class="output">
+                    <pre id="privkey-output" class="hash-output"> </pre>
+                    <button class="copy" data-clipboard-target="#privkey-output">
+                      <img src="img/copy.png" alt="Copy to clipboard">
+                    </button>
+                  </div>
                   <h3 class="hash-heading">Seed</h3>
-                  <pre id="seed-output" class="hash-output"> </pre>
-
+                  <div class="output">
+                    <pre id="seed-output" class="hash-output"> </pre>
+                    <button class="copy" data-clipboard-target="#seed-output">
+                      <img src="img/copy.png" alt="Copy to clipboard">
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
+            <hr class="print" />
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
                 <div class="qr-button">
@@ -90,14 +110,20 @@
                 <div class="qr-container">
                   <div id="private-qr-recovered" class="qr"></div>
                   <h3 class="hash-heading">Private Key</h3>
-                  <pre id="privateKey-recovered" class="hash-output"> </pre>
+                  <div class="output">
+                    <pre id="privateKey-recovered" class="hash-output"> </pre>
+                    <button class="copy" data-clipboard-target="#privateKey-recovered">
+                      <img src="img/copy.png" alt="Copy to clipboard">
+                    </button>
                   </div>
+                </div>
               </div>
             </div>
           </div>
 
         </div>
       </div>
+
     </div>
   </div>
   </div>

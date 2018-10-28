@@ -8,6 +8,7 @@ let window = null
 app.once('ready', () => {
   // Create a new window
   window = new BrowserWindow({
+    icon: 'img/Logo-blue.png',
     // Set the initial width to 800px
     width: 1025,
     // Set the initial height to 600px

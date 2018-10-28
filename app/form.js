@@ -5,7 +5,7 @@ const crypto = Crypto();
 const qrcode = require('qrcode-generator');
 const bip39 = require('bip39');
 const tabs = require('tabs');
-
+const printJS = require('print-js');
 
 ////////////
 // Render //
@@ -13,6 +13,7 @@ const tabs = require('tabs');
 $(document).ready(function () {
   var container = document.querySelector('.tab-container')
   tabs(container);
+  new ClipboardJS('.copy');
 });
 
 /////////////////
@@ -32,6 +33,10 @@ $(() => {
     const publicKey = crypto.returnPublicKey(privateKey);
     $('#pubkey-output').text(publicKey)
     makeqr($('#public-qr'), publicKey);
+  })
+
+  $('#print').bind('click', function() {
+    printJS('keys', 'html');
   })
 
   $('#text-input').focus() // focus input box
