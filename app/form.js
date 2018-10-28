@@ -6,6 +6,9 @@ const qrcode = require('qrcode-generator');
 const bip39 = require('bip39');
 const tabs = require('tabs');
 const printJS = require('print-js');
+var pbkdf2 = require('pbkdf2').pbkdf2Sync
+var unorm = require('unorm')
+
 
 ////////////
 // Render //
@@ -23,8 +26,6 @@ $(document).ready(function () {
 $(() => {
     $('#generate').bind('click', function () {
     var keyMnemPair = generatePrivateKeyFromMnemonic();
-    console.log(keyMnemPair);
-    //const privateKey = crypto.generateKeys()
     const seed = keyMnemPair[1];
     $('#seed-output').text(seed);
     const privateKey = keyMnemPair[0];
@@ -47,9 +48,8 @@ $(() => {
 
   $('#seed-input').bind('input propertychange', function () {
     const text = this.value;
-    console.log(text);
     if (text.trim().split(/\s+/g).length == 12) {
-      var recPrivateKey = bip39.mnemonicToSeed(text).toString('hex');
+      var recPrivateKey = mnemonicToSeed32(text).toString('hex');
       $('#privateKey-recovered').text(recPrivateKey)
       makeqr($('#private-qr-recovered'), recPrivateKey);
     } else {
@@ -72,12 +72,15 @@ function makeqr(obj, data) {
 function generatePrivateKeyFromMnemonic() {
   let privateKey;
   let mnem;
-  do { mnem = bip39.generateMnemonic() } while (!secp256k1.privateKeyVerify(bip39.mnemonicToSeed(mnem), false));
-  //do { mnem = bip39.generateMnemonic(128, randomBytes, "ENGLISH_WORDLIST") } while (!secp256k1.privateKeyVerify(bip39.mnemonicToSeed(mnem), false));
-  //mnem = bip39.generateMnemonic();
-  privateKey = bip39.mnemonicToSeed(mnem);
+  do { mnem = bip39.generateMnemonic() } while (!secp256k1.privateKeyVerify(mnemonicToSeed32(mnem), false));
+  privateKey = mnemonicToSeed32(mnem);
   var pair = [privateKey.toString('hex'), mnem];
-  console.log(pair);
   return pair;
 }
 
+// function to mimic btc bip 39's mnemonicToSeed function but removing password and salt functions.
+function mnemonicToSeed32 (mnemonic) {
+  var mnemonicBuffer = Buffer.from(unorm.nfkd(mnemonic), 'utf8');
+
+  return pbkdf2(mnemonicBuffer, "", 2048, 32, 'sha512')
+}
