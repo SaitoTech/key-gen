@@ -9,8 +9,8 @@
   <!-- Stylesheets -->
 
   <link rel="stylesheet" href="./bootstrap.min.css">
-  <link rel="stylesheet" href="./styles.css">
-
+  <link rel="stylesheet" media="screen" href="./styles.css">
+  <link rel="stylesheet" media="print" href="./styles.print.css">
 
   <!-- Scripts -->
   <script>
@@ -25,7 +25,7 @@
 <body>
   <div id="content" class="wrapper">
     <div id="header">
-      <div class="row">
+      <div class="row screen">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
           <img id="print" src="img/print.png" alt="print">
           <div class="qr-button">
@@ -36,12 +36,12 @@
         </div>
       </div>
       <div class="tab-container">
-        <hr />
-        <div class="tabs">
+        <hr class="screen"/>
+        <div class="tabs screen">
           <a class="tab active">Generate Keys</a>
           <a class="tab">Retrieve Keys</a>
         </div>
-        <hr />
+        <hr class="screen"/>
         <div class="tab-panes">
           <div id="keys" class="tab-pane active">
             <hr class="print" />
@@ -95,7 +95,7 @@
               </div>
             </div>
           </div>
-          <div class="tab-pane">
+          <div class="tab-pane screen">
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
                 <h3 class="tabs__title">Restore Keys</h3>

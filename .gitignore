@@ -62,3 +62,6 @@ typings/
 
 # electron-forge output
 out 
+
+# electron-builder output
+dist

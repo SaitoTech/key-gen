@@ -5,9 +5,8 @@ const crypto = Crypto();
 const qrcode = require('qrcode-generator');
 const bip39 = require('bip39');
 const tabs = require('tabs');
-const printJS = require('print-js');
-var pbkdf2 = require('pbkdf2').pbkdf2Sync
-var unorm = require('unorm')
+const pbkdf2 = require('pbkdf2').pbkdf2Sync
+const unorm = require('unorm')
 
 
 ////////////
@@ -37,7 +36,8 @@ $(() => {
   })
 
   $('#print').bind('click', function() {
-    printJS('keys', 'html');
+    //printJS('keys', 'html');
+    window.print();
   })
 
   $('#text-input').focus() // focus input box
