@@ -2,13 +2,12 @@
   "name": "electron-app",
   "version": "1.0.0",
   "description": "",
-  "author": "umair_khan",
+  "author": "",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
   "license": "ISC",
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",
