@@ -1,0 +1,152 @@
+html, body, .container-fluid {
+  background: transparent;
+  overflow: hidden;
+}
+
+html {
+  background-color: #D6D8DC;
+  background-image: url('img/Logo-blue.png');
+  background-repeat: no-repeat;
+  background-position-x: right; 
+}
+
+.wrapper {
+  background-color: rgba(210, 210, 210, 0.5);
+  height: 750px;
+}
+
+#header {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+.text-input {
+  font-size: 16px;
+}
+
+.hash-output {
+  color: #575B5E;
+  letter-spacing: 2px;
+  white-space: pre-wrap;
+  position: relative;
+  font-size: 0.850em;
+  line-height: 2em;
+}
+
+h3 {
+  font-size: 20px;
+  margin-top: 15pxpx;
+}
+
+hr {
+  margin: 10px 0;
+}
+
+.hash-heading {
+  color: #6699bb;
+  margin-top: 0;
+  font-weight: normal;
+  font-size: 18px;
+}
+
+.qr-container {
+  margin: 20px;
+  border: 1px solid #6699bb;
+  border-radius: 3px;
+  background-color: rgba(240, 240, 240, 0.5);
+  padding: 20px;
+  min-height: 190px;
+}
+
+.qr>img {
+  height: 150px;
+  width:150px;
+}
+
+.qr-button {
+   padding: 0 20px;
+}
+
+.qr {
+  min-width: 150px;
+  min-height: 150px;
+  border: 1px solid #6699bb;
+  border-radius: 3px;
+  float: right;
+  background-color: #f5f5f5;
+}
+
+.tabs {
+  padding-left:0px;
+}
+
+.tab.active {
+  /* background: #fff; */
+  color: #31708f;
+  text-shadow: 0 0 1px #d9edf7;
+}
+
+.tab {
+  display: inline-block;
+  min-width: 100px;
+  margin-left: 25px;
+  cursor: pointer;
+  font-size: larger;
+  color: #444444; 
+}
+
+.tab:hover {
+  text-decoration: none;
+  text-shadow: 0 0 2px #d9edf7;
+  color: #777777;
+}
+
+.tabs__title {
+  padding-left: 20px;
+}
+
+.tab-pane {
+  display: none;
+}
+.tab-pane.active {
+  display: block;
+}
+
+pre, #seed-output {
+  margin-right: 170px;
+}
+
+.copy {
+  position: relative;
+  top: -52px;
+  left: 736px;
+  border: none;
+  background: none;
+}
+
+.copy img {
+  vertical-align: middle;
+  height: 24px;
+  margin-top: 6px;
+}
+
+#print {
+  height: 48px;
+  float: right;
+  margin-right: 20px;
+  margin-top: 10px;
+  border: 2px solid #336699;
+  border-radius: 56px;
+  padding: 7px;
+  width: 48px;
+}
+
+#print:hover {
+  border-color: #6699BB;
+  cursor: pointer;
+}
+
+.print {
+  display: none;
+}
