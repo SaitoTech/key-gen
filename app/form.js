@@ -1,12 +1,12 @@
-const secp256k1 = require('secp256k1');
-const { randomBytes } = require('crypto');
-const Crypto = require('./crypto.js')
-const crypto = Crypto();
-const qrcode = require('qrcode-generator');
-const bip39 = require('bip39');
-const tabs = require('tabs');
-const pbkdf2 = require('pbkdf2').pbkdf2Sync
-const unorm = require('unorm')
+const secp256k1 = import('secp256k1');
+const { randomBytes } = import('crypto');
+const crypto = import('./crypto.js')
+//const crypto = Crypto();
+const qrcode = import('qrcode-generator');
+const bip39 = import('bip39');
+const tabs = import('tabs');
+const pbkdf2 = import('pbkdf2').pbkdf2Sync
+const unorm = import('unorm')
 
 
 ////////////
