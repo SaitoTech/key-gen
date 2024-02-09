@@ -7,19 +7,11 @@
   <title>Saito - KeyGen</title>
 
   <!-- Stylesheets -->
+   <link rel="stylesheet" href="./css/bootstrap.min.css">
+   <link rel="stylesheet" media="screen" href="./css/styles.css">
+   <link rel="stylesheet" media="print" href="./css/styles.print.css">
+   <link rel="stylesheet" href="./css/font-awesome/css/all.css" >
 
-  <link rel="stylesheet" href="./bootstrap.min.css">
-  <link rel="stylesheet" media="screen" href="./styles.css">
-  <link rel="stylesheet" media="print" href="./styles.print.css">
-
-  <!-- Scripts -->
-  <!--script>
-    delete module.exports
-  </script-->
-
-  <script>window.$ = window.jQuery = require('jquery');</script>
-  <script src="../node_modules/clipboard/dist/clipboard.js" charset="utf-8"></script>
-  <script src="./form.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -55,9 +47,7 @@
                   <h3 class="hash-heading">Public Key</h3>
                   <div class="output">
                     <pre id="pubkey-output" class="hash-output"> </pre>
-                    <button class="copy" data-clipboard-target="#pubkey-output">
-                      <img src="img/copy.png" alt="Copy to clipboard">
-                    </button>
+                    <i class="copy fa-regular fa-copy" data-clipboard-target="#pubkey-output"></i>
                   </div>
                 </div>
               </div>
@@ -70,16 +60,12 @@
                   <h3 class="hash-heading">Private Key</h3>
                   <div class="output">
                     <pre id="privkey-output" class="hash-output"> </pre>
-                    <button class="copy" data-clipboard-target="#privkey-output">
-                      <img src="img/copy.png" alt="Copy to clipboard">
-                    </button>
+                    <i class="copy fa-regular fa-copy" data-clipboard-target="#privkey-output"></i>
                   </div>
                   <h3 class="hash-heading">Seed</h3>
                   <div class="output">
                     <pre id="seed-output" class="hash-output"> </pre>
-                    <button class="copy" data-clipboard-target="#seed-output">
-                      <img src="img/copy.png" alt="Copy to clipboard">
-                    </button>
+                    <i class="copy fa-regular fa-copy" data-clipboard-target="#seed-output"></i>
                   </div>
                 </div>
               </div>
@@ -112,9 +98,7 @@
                   <h3 class="hash-heading">Private Key</h3>
                   <div class="output">
                     <pre id="privateKey-recovered" class="hash-output"> </pre>
-                    <button class="copy" data-clipboard-target="#privateKey-recovered">
-                      <img src="img/copy.png" alt="Copy to clipboard">
-                    </button>
+                    <i class="copy fa-regular fa-copy" data-clipboard-target="#privkey-output"></i>
                   </div>
                 </div>
               </div>
@@ -127,6 +111,8 @@
     </div>
   </div>
   </div>
+
+    <script src="./form.js" charset="utf-8"></script>
 </body>
 
 </html>
