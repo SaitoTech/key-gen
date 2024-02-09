@@ -5,9 +5,13 @@ html, body, .container-fluid {
 
 html {
   background-color: #D6D8DC;
-  background-image: url('img/Logo-blue.png');
+}
+
+body {
+  background-image: url('img/logo.svg');
   background-repeat: no-repeat;
   background-position-x: right; 
+
 }
 
 .wrapper {
