@@ -5,7 +5,7 @@ const sha256            = require('sha256');
 const merkle            = require('merkle-tree-gen');
 const node_cryptojs     = require('node-cryptojs-aes');
 const { randomBytes }   = require('crypto');
-const secp256k1         = require('secp256k1/js')
+const secp256k1         = require('secp256k1')
 const CryptoJS          = node_cryptojs.CryptoJS;
 const JsonFormatter     = node_cryptojs.JsonFormatter;
 const Base58            = require("base-58");
@@ -51,6 +51,7 @@ Crypto.prototype.hash = function hash(text="") {
  * @returns {string} compressed publickey
  */
 Crypto.prototype.compressPublicKey = function compressPublicKey(pubkey) {
+  console.log('pubkey: ', pubkey);
   return this.toBase58(secp256k1.publicKeyConvert(Buffer.from(pubkey,'hex'), true).toString('hex'));
 }
 

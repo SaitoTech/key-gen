@@ -1,0 +1,15 @@
+button { 
+  display: none;
+}
+
+#generate { 
+  display: none;
+}
+
+.screen { 
+  display: none;
+}
+
+.print { 
+  display: block;
+}
