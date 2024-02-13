@@ -1,9 +1,10 @@
+const bip39 = require('bip39');
+const crypto = require('crypto');
+const elliptic = require('elliptic');
 const secp256k1 = require('secp256k1');
 const { randomBytes } = require('crypto');
 const Crypto = require('./crypto.js')
 const qrcode = require('qrcode-generator');
-const bip39 = require('bip39');
-const tabs = require('tabs');
 const pbkdf2 = require('pbkdf2').pbkdf2Sync;
 const unorm = require('unorm');
 
@@ -22,22 +23,22 @@ const unorm = require('unorm');
 /////////////////
 
 
-
-const crypto = Crypto();
-
 if (document.querySelector('#generate')){
   document.querySelector('#generate').addEventListener('click', function(e){
     e.preventDefault();
-    var keyMnemPair = generatePrivateKeyFromMnemonic();
-      const seed = keyMnemPair[1];
-      document.querySelector('#seed-output').innerText = seed;
-      const privateKey = keyMnemPair[0];
-      document.querySelector('#privkey-output').innerText = privateKey;
-      makeqr(document.querySelector('#private-qr'), privateKey);
-      console.log("privateKey: ", privateKey);
-      const publicKey = crypto.returnPublicKey(privateKey.toString('hex'));
-      document.querySelector('#pubkey-output').text(publicKey)
-      makeqr(document.querySelector('#public-qr'), publicKey);
+
+    let mnem = generateMnemonic();
+    document.querySelector('#seed-output').innerText = mnem;
+    
+    let keyPair = generateKeyPairFromMnemonic(mnem);
+    console.log("keypair: ", keyPair);
+
+    document.querySelector('#privkey-output').innerText = keyPair.privateKey;
+    makeqr(document.querySelector('#private-qr'), keyPair.privateKey);
+    
+
+    document.querySelector('#pubkey-output').innerText = keyPair.publicKey;
+    makeqr(document.querySelector('#public-qr'), keyPair.publicKey);
   });
 }
 
@@ -88,17 +89,31 @@ function makeqr(obj, data) {
   obj.innerHTML = "";
   let qrImg = qr.createImgTag(5, 0, data);
   console.log("makeqr: ", qrImg);
-  document.querySelector("#private-qr").innerHTML = qrImg;
+  obj.innerHTML = qrImg;
 }
 
-function generatePrivateKeyFromMnemonic() {
-  let privateKey;
+function generateKeyPairFromMnemonic(mnemonic) {
+  // Derive a seed from the mnemonic phrase
+  const seed = bip39.mnemonicToSeedSync(mnemonic);
+
+  // Create an elliptic curve key pair
+  const ec = new elliptic.ec('secp256k1');
+  const keyPair = ec.genKeyPair({
+    entropy: seed.slice(0, 32), // Take the first 32 bytes of the seed for entropy
+  });
+
+  return {
+    privateKey: keyPair.getPrivate('hex'),
+    publicKey: keyPair.getPublic('hex'),
+  };
+}
+
+function generateMnemonic(){
   let mnem;
   do { mnem = bip39.generateMnemonic() } while (!secp256k1.privateKeyVerify(mnemonicToSeed32(mnem), false));
-  privateKey = mnemonicToSeed32(mnem);
-  var pair = [privateKey.toString('hex'), mnem];
-  return pair;
+  return mnem;
 }
+
 
 // function to mimic btc bip 39's mnemonicToSeed function but removing password and salt functions.
 function mnemonicToSeed32 (mnemonic) {
@@ -106,3 +121,12 @@ function mnemonicToSeed32 (mnemonic) {
 
   return pbkdf2(mnemonicBuffer, "", 2048, 32, 'sha512')
 }
+
+// function generatePrivateKeyFromMnemonic() {
+//   let privateKey;
+//   let mnem;
+//   do { mnem = bip39.generateMnemonic() } while (!secp256k1.privateKeyVerify(mnemonicToSeed32(mnem), false));
+//   privateKey = mnemonicToSeed32(mnem);
+//   var pair = [privateKey.toString('hex'), mnem];
+//   return pair;
+// }
