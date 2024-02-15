@@ -7,6 +7,7 @@ const Crypto = require('./crypto.js')
 const qrcode = require('qrcode-generator');
 const pbkdf2 = require('pbkdf2').pbkdf2Sync;
 const unorm = require('unorm');
+const Base58 = require("base-58");
 
 
 ////////////
@@ -21,7 +22,7 @@ const unorm = require('unorm');
 /////////////////
 // Create Keys //
 /////////////////
-
+let cryptoClass = new Crypto();
 
 if (document.querySelector('#generate')){
   document.querySelector('#generate').addEventListener('click', function(e){
@@ -29,23 +30,81 @@ if (document.querySelector('#generate')){
 
     let mnem = generateMnemonic();
     document.querySelector('#seed-output').innerText = mnem;
-    
-    let keyPair = generateKeyPairFromMnemonic(mnem);
+
+    let keyPair = generateKeyPair(mnem);
     console.log("keypair: ", keyPair);
 
     document.querySelector('#privkey-output').innerText = keyPair.privateKey;
     makeqr(document.querySelector('#private-qr'), keyPair.privateKey);
     
-
     document.querySelector('#pubkey-output').innerText = keyPair.publicKey;
     makeqr(document.querySelector('#public-qr'), keyPair.publicKey);
+
+
+    var recPrivateKey = mnemonicToSeed32(mnem).toString('hex');
+    console.log('recPrivateKey', recPrivateKey);
+
   });
 }
+
+
+function generateKeyPair(mnemonic){
+  const msg = randomBytes(32);
+ // console.log('msg: ', msg);
+
+  // Derive a seed from the mnemonic phrase
+  const seed = bip39.mnemonicToSeedSync(mnemonic);
+
+  console.log('seed: ', seed);
+
+  // generate privKey
+  let privKey;
+  let mnem;
+  do {
+    //privKey = randomBytes(32);
+    privKey = seed.slice(0, 32);
+//    mnem = bip39.generateMnemonic();
+
+  } while (!secp256k1.privateKeyVerify(privKey))
+
+  console.log('privKey: ', privKey);
+  console.log('compressed privKey: ', (privKey).toString("hex"));
+
+  // get the public key in a compressed format
+  const pubKey = secp256k1.publicKeyCreate(privKey);
+
+  console.log('pubKey: ', pubKey);
+  console.log('compressed pubKey: ', cryptoClass.toBase58(pubKey));
+
+  // sign the message
+  const sigObj = secp256k1.ecdsaSign(msg, privKey);
+
+  // verify the signature
+  console.log(secp256k1.ecdsaVerify(sigObj.signature, msg, pubKey));
+  // => true
+
+  return {
+    privateKey: (privKey).toString("hex"),
+    publicKey: cryptoClass.toBase58(pubKey),
+  };
+
+}
+
 
 document.querySelector('#print').addEventListener('click', function(e){
     e.preventDefault();
     window.print();
 });
+
+const copyContent = async (text) => {
+  try {
+    await navigator.clipboard.writeText(text).then(function() {
+      alert("Copied to clipboard");
+    });
+  } catch (err) {
+    console.error('Failed to copy: ', err);
+  }
+}
 
 document.querySelectorAll('.copy').forEach(function(icon, i){
    icon.addEventListener('click', function(e){
@@ -54,8 +113,7 @@ document.querySelectorAll('.copy').forEach(function(icon, i){
       console.log('querySelector: ', querySelector);
       let value = document.querySelector(querySelector).innerText;
       console.log('value: ', value);
-      navigator.clipboard.writeText(value);
-      alert('Copied to clipboard');
+      copyContent(value);
   });
 });
 
@@ -70,8 +128,8 @@ document.querySelectorAll('.copy').forEach(function(icon, i){
 //   $('#seed-input').bind('input propertychange', function () {
 //     const text = this.value;
 //     if (text.trim().split(/\s+/g).length == 12) {
-//       var recPrivateKey = mnemonicToSeed32(text).toString('hex');
-//       $('#privateKey-recovered').text(recPrivateKey)
+      // var recPrivateKey = mnemonicToSeed32(text).toString('hex');
+      // $('#privateKey-recovered').text(recPrivateKey)
 //       makeqr($('#private-qr-recovered'), recPrivateKey);
 //     } else {
 //       $('#privateKey-recovered').text("Seed Invalid");
@@ -122,11 +180,11 @@ function mnemonicToSeed32 (mnemonic) {
   return pbkdf2(mnemonicBuffer, "", 2048, 32, 'sha512')
 }
 
-// function generatePrivateKeyFromMnemonic() {
-//   let privateKey;
-//   let mnem;
-//   do { mnem = bip39.generateMnemonic() } while (!secp256k1.privateKeyVerify(mnemonicToSeed32(mnem), false));
-//   privateKey = mnemonicToSeed32(mnem);
-//   var pair = [privateKey.toString('hex'), mnem];
-//   return pair;
-// }
+function generatePrivateKeyFromMnemonic() {
+  let privateKey;
+  let mnem;
+  do { mnem = bip39.generateMnemonic() } while (!secp256k1.privateKeyVerify(mnemonicToSeed32(mnem), false));
+  privateKey = mnemonicToSeed32(mnem);
+  var pair = [privateKey.toString('hex'), mnem];
+  return pair;
+}
