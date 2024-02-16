@@ -7,7 +7,6 @@
   <title>Saito - KeyGen</title>
 
   <!-- Stylesheets -->
-   <link rel="stylesheet" href="./css/bootstrap.min.css">
    <link rel="stylesheet" media="screen" href="./css/styles.css">
    <link rel="stylesheet" media="print" href="./css/styles.print.css">
    <link rel="stylesheet" href="./css/font-awesome/css/all.css" >
@@ -17,59 +16,54 @@
 <body>
   <div id="content" class="wrapper">
     <div id="header">
-      <div class="row screen">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
-          <img id="print" src="img/print.png" alt="print">
-          <div class="qr-button">
-            <h1>Saito Key Generator
-              <!--img src="img/Logo-blue.png" height="64px" width="64px" style="float:right"-->
-            </h1>
-          </div>
-        </div>
+      <div class="qr-button">
+        <h1>Saito Key Generator</h1>
       </div>
-      <div class="tab-container">
-        <hr class="screen"/>
+      <img id="print" src="img/print.png" alt="print">
+    </div>
+    <hr class="screen"/>
+    <div class="tab-container">
         <div class="tabs screen">
           <a class="tab active">Generate Keys</a>
           <a class="tab">Retrieve Keys</a>
         </div>
-        <hr class="screen"/>
-        <div class="tab-panes">
-          <div id="keys" class="tab-pane active">
-            <hr class="print" />
-            <div class="row">
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <h3 class="tabs__title screen">Create Keys</h3>
-                <h3 class="tabs__title print">Saito Keys</h3>
-                <hr class="print" />
-                <div class="qr-container">
-                  <div id="public-qr" class="qr"></div>
-                  <h3 class="hash-heading">Public Key</h3>
-                  <div class="output">
-                    <pre id="pubkey-output" class="hash-output"> </pre>
-                    <i class="copy fa-regular fa-copy" data-clipboard-target="#pubkey-output"></i>
-                  </div>
-                </div>
+      </div>  
+      <hr class="screen"/>
+      <div class="tab-panes">
+        <div id="keys" class="tab-pane active">
+        <hr class="print" />
+        <div class="row">
+          <h3 class="tabs__title print">Saito Keys</h3>
+          <hr class="print" />
+          <div class="qr-container">
+            <div class="key-display">
+              <h3 class="hash-heading">Public Key</h3>
+              <div class="output">
+                <pre id="pubkey-output" class="hash-output"> </pre>
+                <i class="copy fa-regular fa-copy" data-clipboard-target="#pubkey-output"></i>
               </div>
             </div>
-            <hr class="print" />
-            <div class="row">
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="qr-container">
-                  <div id="private-qr" class="qr"></div>
-                  <h3 class="hash-heading">Private Key</h3>
-                  <div class="output">
-                    <pre id="privkey-output" class="hash-output"> </pre>
-                    <i class="copy fa-regular fa-copy" data-clipboard-target="#privkey-output"></i>
-                  </div>
-                  <h3 class="hash-heading">Seed</h3>
-                  <div class="output">
-                    <pre id="seed-output" class="hash-output"> </pre>
-                    <i class="copy fa-regular fa-copy" data-clipboard-target="#seed-output"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div id="public-qr" class="qr"></div>
+          </div>
+        </div>
+        <hr class="print" />
+        <div class="row">
+         <div class="qr-container">
+           <div class="key-display">
+             <h3 class="hash-heading">Private Key</h3>
+             <div class="output">
+               <pre id="privkey-output" class="hash-output"> </pre>
+               <i class="copy fa-regular fa-copy" data-clipboard-target="#privkey-output"></i>
+             </div>
+             <h3 class="hash-heading">Seed</h3>
+             <div class="output">
+               <pre id="seed-output" class="hash-output"> </pre>
+               <i class="copy fa-regular fa-copy" data-clipboard-target="#seed-output"></i>
+             </div>  
+           </div>
+           <div id="private-qr" class="qr"></div>
+          </div>
+          </div>
             <hr class="print" />
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
