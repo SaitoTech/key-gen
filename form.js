@@ -49,6 +49,9 @@ if (document.querySelector('#generate')){
 
 
 function generateKeyPair(mnemonic){
+
+  console.log('mnemonic', mnemonic);
+
   const msg = randomBytes(32);
  // console.log('msg: ', msg);
 
@@ -138,6 +141,40 @@ document.querySelectorAll('.copy').forEach(function(icon, i){
 //   });
 // })
 
+
+document.querySelectorAll('.tab').forEach(function(icon, i){
+   icon.addEventListener('click', function(e){
+      e.preventDefault();
+
+      document.querySelector('#keys').classList.toggle('active');
+      document.querySelector('#retrieve').classList.toggle('active');
+
+      document.querySelector('#keys-btn').classList.toggle('active');
+      document.querySelector('#retrieve-btn').classList.toggle('active');
+      
+  });
+});
+
+document.querySelector('#seed-input').addEventListener('keyup', function(e){
+      e.preventDefault();
+      let value = e.currentTarget.value;
+      if (value.trim().split(/\s+/g).length == 12) {
+        const seed = bip39.mnemonicToSeedSync(value);
+        let privKey;
+        do {
+          privKey = seed.slice(0, 32);
+        } while (!secp256k1.privateKeyVerify(privKey))
+        
+        let recPrivateKey = (privKey).toString("hex");
+
+       document.querySelector('#privateKey-recovered').innerText = recPrivateKey;
+       makeqr(document.querySelector('#private-qr-recovered'), recPrivateKey);
+      } else {
+        document.querySelector('#privateKey-recovered').innerText = "Seed Invalid";
+        document.querySelector('#private-qr-recovered').innerHTML = "";
+      }
+});
+
 function makeqr(obj, data) {
   var typeNumber = 0;
   var errorCorrectionLevel = 'L';
@@ -177,7 +214,7 @@ function generateMnemonic(){
 function mnemonicToSeed32 (mnemonic) {
   var mnemonicBuffer = Buffer.from(unorm.nfkd(mnemonic), 'utf8');
 
-  return pbkdf2(mnemonicBuffer, "", 2048, 32, 'sha512')
+  return pbkdf2(mnemonicBuffer, "", 1024, 32, 'sha512')
 }
 
 function generatePrivateKeyFromMnemonic() {

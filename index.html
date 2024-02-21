@@ -24,13 +24,13 @@
     <hr class="screen"/>
     <div class="tab-container">
         <div class="tabs screen">
-          <a class="tab active">Generate Keys</a>
-          <a class="tab">Retrieve Keys</a>
+          <a class="tab active" id="keys-btn">Generate Keys</a>
+          <a class="tab" id="retrieve-btn">Retrieve Keys</a>
         </div>
       </div>  
       <hr class="screen"/>
       <div class="tab-panes">
-        <div id="keys" class="tab-pane active">
+        <div id="keys" class="tab-pane active" data-id="keys">
         <hr class="print" />
         <div class="row">
           <h3 class="tabs__title print">Saito Keys</h3>
@@ -75,13 +75,13 @@
               </div>
             </div>
           </div>
-          <div class="tab-pane screen">
+          <div id='retrieve' class="tab-pane screen" data-id="retrieve">
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
                 <h3 class="tabs__title">Restore Keys</h3>
-                <div class="qr-container">
+                <div class="qr-container seed-input-container">
                   <h3 class="hash-heading">Enter Seed</h3>
-                  <textarea rows="2" id="seed-input" class="form-control text-input" placeholder="Enter seed exactly to recover private key."></textarea>
+                  <textarea rows="5" id="seed-input" class="form-control text-input" placeholder="Enter seed exactly to recover private key."></textarea>
                 </div>
               </div>
             </div>
