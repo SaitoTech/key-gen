@@ -22,7 +22,9 @@ app.once('ready', () => {
      webPreferences: {
         nodeIntegration: true,
         contextIsolation: false,
-      }
+      },
+
+    autoHideMenuBar: true,
   })
 
   // Load a URL in the window to the local index.html path
