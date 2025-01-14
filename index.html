@@ -1,112 +1,242 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crypto Key Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="./styles.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
 
-  <title>Saito - KeyGen</title>
-
-  <!-- Stylesheets -->
-   <link rel="stylesheet" media="screen" href="./css/styles.css">
-   <link rel="stylesheet" media="print" href="./css/styles.print.css">
-   <link rel="stylesheet" href="./css/font-awesome/css/all.css" >
-
+ 
 </head>
 
 <body>
-  <div id="content" class="wrapper">
-    <div id="header">
-      <div class="qr-button">
-        <h1>Saito Key Generator</h1>
-      </div>
-      <img id="print" src="img/print.png" alt="print">
+  <header class="header">
+    <h1>Saito Key Generator</h1>
+    <p>Generate and manage your cryptographic keys securely</p>
+  </header>
+
+  <main class="container">
+    <div class="tabs">
+      <button class="tab-button active" id="generate-tab" data-tab="generate">Generate Keys</button>
+      <button class="tab-button " id="retrieve-tab"    data-tab="retrieve">Retrieve Keys</button>
     </div>
-    <hr class="screen"/>
-    <div class="tab-container">
-        <div class="tabs screen">
-          <a class="tab active" id="keys-btn">Generate Keys</a>
-          <a class="tab" id="retrieve-btn">Retrieve Keys</a>
-        </div>
-      </div>  
-      <hr class="screen"/>
-      <div class="tab-panes">
-        <div id="keys" class="tab-pane active" data-id="keys">
-        <hr class="print" />
-        <div class="row">
-          <h3 class="tabs__title print">Saito Keys</h3>
-          <hr class="print" />
-          <div class="qr-container">
-            <div class="key-display">
-              <h3 class="hash-heading">Public Key</h3>
-              <div class="output">
-                <pre id="pubkey-output" class="hash-output"> </pre>
-                <i class="copy fa-regular fa-copy" data-clipboard-target="#pubkey-output"></i>
-              </div>
-            </div>
-            <div id="public-qr" class="qr"></div>
-          </div>
-        </div>
-        <hr class="print" />
-        <div class="row">
-         <div class="qr-container">
-           <div class="key-display">
-             <h3 class="hash-heading">Private Key</h3>
-             <div class="output">
-               <pre id="privkey-output" class="hash-output"> </pre>
-               <i class="copy fa-regular fa-copy" data-clipboard-target="#privkey-output"></i>
-             </div>
-             <h3 class="hash-heading">Seed</h3>
-             <div class="output">
-               <pre id="seed-output" class="hash-output"> </pre>
-               <i class="copy fa-regular fa-copy" data-clipboard-target="#seed-output"></i>
-             </div>  
-           </div>
-           <div id="private-qr" class="qr"></div>
-          </div>
-          </div>
-            <hr class="print" />
-            <div class="row">
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
-                <div class="qr-button">
-                  <button rows="2" id="generate" class="form-control button">
-                    Generate Keys
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id='retrieve' class="tab-pane screen" data-id="retrieve">
-            <div class="row">
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
-                <h3 class="tabs__title">Restore Keys</h3>
-                <div class="qr-container seed-input-container">
-                  <h3 class="hash-heading">Enter Seed</h3>
-                  <textarea rows="5" id="seed-input" class="form-control text-input" placeholder="Enter seed exactly to recover private key."></textarea>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="qr-container">
-                  <div id="private-qr-recovered" class="qr"></div>
-                  <h3 class="hash-heading">Private Key</h3>
-                  <div class="output">
-                    <pre id="privateKey-recovered" class="hash-output"> </pre>
-                    <i class="copy fa-regular fa-copy" data-clipboard-target="#privateKey-recovered"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
+    <div class="tab-content" id="generate-content">
+      <div class="key-card">
+        <div class="key-section">
+          <div class="key-info">
+            <h3>
+              <i class="fas fa-key"></i>
+              Public Key
+            </h3>
+            <div class="key-value" id="pubkey-output">
+              Your public key will appear here
+              <button class="copy-button" data-clipboard-target="#pubkey-output">
+                <i class="far fa-copy"></i>
+              </button>
+            </div>
+          </div>
+          <div class="qr-code" id="public-qr"></div>
+        </div>
+
+        <div class="key-section">
+          <div class="key-info">
+            <h3>
+              <i class="fas fa-lock"></i>
+              Private Key
+            </h3>
+            <div class="key-value" id="privkey-output">
+              Your private key will appear here
+              <button class="copy-button" data-clipboard-target="#privkey-output">
+                <i class="far fa-copy"></i>
+              </button>
+            </div>
+          </div>
+          <div class="qr-code" id="private-qr"></div>
+        </div>
+
+        <div class="key-section">
+          <div class="key-info">
+            <h3>
+              <i class="fas fa-seedling"></i>
+              Seed Phrase
+            </h3>
+            <div class="key-value" id="seed-output">
+              Your seed phrase will appear here
+              <button class="copy-button" data-clipboard-target="#seed-output">
+                <i class="far fa-copy"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="key-section">
+          <div class="key-info">
+            <h3>
+              <i class="fas fa-fingerprint"></i>
+              Elrond Address
+            </h3>
+            <div class="key-value" id="elrond-output">
+              Your Elrond address will appear here
+              <button class="copy-button" data-clipboard-target="#elrond-output">
+                <i class="far fa-copy"></i>
+              </button>
+            </div>
+          </div>
+          <div class="qr-code" id="elrond-qr"></div>
+        </div>
+
+        <div class="action-buttons">
+          <button id="generate" class="button button-primary">
+            <i class="fas fa-plus-circle"></i>
+            Generate New Keys
+          </button>
+          <button id="print" class="button button-secondary">
+            <i class="fas fa-print"></i>
+            Print Keys
+          </button>
         </div>
       </div>
-
     </div>
-  </div>
+
+    <div class="tab-content" id="retrieve" style="display: none;">
+
+      <!-- Private Key Recovery Section -->
+      <div class="key-card">
+        <h3 class="section-title">Recover from Private Key</h3>
+        <div class="input-group">
+          <label for="privkey-input">Enter Private Key</label>
+          <input type="text" id="privkey-input" class="input-field" placeholder="Enter your private key" />
+          <button id="convert-btn" class="button button-primary" style="margin-top: 1rem;">
+            <i class="fas fa-sync-alt"></i>
+            Convert
+          </button>
+        </div>
+
+        <div class="key-section">
+          <div class="key-info">
+            <h3>
+              <i class="fas fa-seedling"></i>
+              Generated Seed Phrase
+            </h3>
+            <div class="key-value" id="seed-generated">
+              Generated seed phrase will appear here
+              <button class="copy-button" data-clipboard-target="#seed-generated">
+                <i class="far fa-copy"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="key-section">
+          <div class="key-info">
+            <h3>
+              <i class="fas fa-fingerprint"></i>
+              Generated Elrond Address
+            </h3>
+            <div class="key-value" id="elrond-generated">
+              Generated Elrond address will appear here
+              <button class="copy-button" data-clipboard-target="#elrond-generated">
+                <i class="far fa-copy"></i>
+              </button>
+            </div>
+          </div>
+          <div class="qr-code" id="elrond-qr-generated"></div>
+        </div>
+      </div>
+      <div class="key-card">
+        <div class="input-group">
+          <label for="seed-input">Enter Seed Phrase</label>
+          <textarea id="seed-input" class="input-field" rows="3"
+            placeholder="Enter your 24-word seed phrase to recover your keys"></textarea>
+        </div>
+
+        <div class="key-section">
+          <div class="key-info">
+            <h3>
+              <i class="fas fa-lock"></i>
+              Recovered Private Key
+            </h3>
+            <div class="key-value" id="privateKey-recovered">
+              Recovered private key will appear here
+              <button class="copy-button" data-clipboard-target="#privateKey-recovered">
+                <i class="far fa-copy"></i>
+              </button>
+            </div>
+          </div>
+          <div class="qr-code" id="private-qr-recovered"></div>
+        </div>
+
+        <div class="key-section">
+          <div class="key-info">
+            <h3>
+              <i class="fas fa-fingerprint"></i>
+              Recovered Elrond Address
+            </h3>
+            <div class="key-value" id="elrond-recovered">
+              Recovered Elrond address will appear here
+              <button class="copy-button" data-clipboard-target="#elrond-recovered">
+                <i class="far fa-copy"></i>
+              </button>
+            </div>
+          </div>
+          <div class="qr-code" id="elrond-qr-recovered"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="copy-toast">
+    Copied to clipboard!
   </div>
 
-    <script src="./form.js" charset="utf-8"></script>
+  <script>
+    const generateTab = document.getElementById('generate-tab');
+    const retrieveTab = document.getElementById('retrieve-tab');
+    const generateContent = document.getElementById('generate-content');
+    const retrieveContent = document.getElementById('retrieve');
+
+    // Add click handlers to both buttons
+    generateTab.addEventListener('click', () => {
+      // Show generate content, hide retrieve content
+      generateContent.style.display = 'block';
+      retrieveContent.style.display = 'none';
+
+      // Update button active states
+      generateTab.classList.add('active');
+      retrieveTab.classList.remove('active');
+    });
+
+    retrieveTab.addEventListener('click', () => {
+      // Show retrieve content, hide generate content
+      retrieveContent.style.display = 'block';
+      generateContent.style.display = 'none';
+
+      // Update button active states
+      retrieveTab.classList.add('active');
+      generateTab.classList.remove('active');
+    });
+    // Copy to clipboard functionality
+    document.querySelectorAll('.copy-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const text = button.parentElement.textContent.trim();
+        navigator.clipboard.writeText(text).then(() => {
+          const toast = document.getElementById('copy-toast');
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 3000);
+        });
+      });
+    });
+
+  </script>
+
+  <script src="./form.js"></script>
+
 </body>
 
 </html>

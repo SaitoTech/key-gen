@@ -27,6 +27,9 @@ app.once('ready', () => {
     autoHideMenuBar: true,
   })
 
+window.webContents.openDevTools();
+
+
   // Load a URL in the window to the local index.html path
   window.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
@@ -39,5 +42,6 @@ app.once('ready', () => {
     window.show()
   })
 })
+
 
 
