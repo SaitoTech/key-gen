@@ -92,30 +92,37 @@ Crypto.prototype.generateKeyPair = function generateKeyPair() {
   return [
     privateKey.toString('hex'),
     pubKeyBase58,
-
-
   ];
 }
 
 /**
-* Creates a keypair from an existing private key
-* @param {Buffer|Uint8Array} privateKeySlice - Private key bytes
-* @returns {[Uint8Array, Uint8Array]} [publicKey, privateKey]
-*/
-Crypto.prototype.generateKeypairFromPrivateKey = function generateKeypairFromPrivateKey(privateKeySlice) {
-  // Ensure private key is valid
-  if (!secp256k1.privateKeyVerify(privateKeySlice)) {
-    throw new Error("Invalid private key");
+ * Creates a keypair from an existing private key
+ * @param {string} privateKeyHex - Private key in hex format
+ * @returns {[string, string]} [publicKey, privateKey] both as strings
+ */
+Crypto.prototype.generateKeypairFromPrivateKey = function generateKeypairFromPrivateKey(privateKeyHex) {
+  try {
+      const privateKeyBuffer = Buffer.from(privateKeyHex, 'hex');
+      
+      if (!secp256k1.privateKeyVerify(privateKeyBuffer)) {
+          throw new Error("Invalid private key");
+      }
+      
+      const publicKey = secp256k1.publicKeyCreate(privateKeyBuffer, true);
+    
+      const pubKeyBase58 = Base58.encode(publicKey);
+      
+
+      return [
+        privateKeyHex,
+          pubKeyBase58,
+          
+      ];
+      
+  } catch (error) {
+      console.error('Error in generateKeypairFromPrivateKey:', error);
+      throw error;
   }
-
-  // Generate public key from private key
-  const publicKey = secp256k1.publicKeyCreate(privateKeySlice);
-
-  // Create fixed-length private key array
-  const privateKey = new Uint8Array(32);
-  privateKey.set(privateKeySlice);
-
-  return [publicKey, privateKey];
 }
 
 /**
@@ -127,9 +134,6 @@ Crypto.prototype.verifyPublicKeyLength = function verifyPublicKeyLength(publicKe
   const base58Key = this.toBase58(publicKey.toString('hex'));
   return base58Key.length === 44;
 }
-
-
-
 
 
 Crypto.prototype.generateSeedFromPrivateKey = function (existingPrivateKey) {

@@ -28,6 +28,40 @@
 
     <div class="tab-content" id="generate-content">
       <div class="key-card">
+
+        
+        <div class="key-section">
+          <div class="key-info">
+            <h3>
+              <i class="fas fa-lock"></i>
+              Private Key
+            </h3>
+            <div class="key-value" id="privkey-output">
+              Your private key will appear here
+              <button class="copy-button" data-clipboard-target="#privkey-output">
+                <i class="far fa-copy"></i>
+              </button>
+            </div>
+          </div>
+          <!-- <div class="qr-code" id="private-qr"></div> -->
+        </div>
+
+    
+        <div class="key-section">
+          <div class="key-info">
+            <h3>
+              <i class="fas fa-seedling"></i>
+              Seed Phrase
+            </h3>
+            <div class="key-value" id="seed-output">
+              Your seed phrase will appear here
+              <button class="copy-button" data-clipboard-target="#seed-output">
+                <i class="far fa-copy"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
         <div class="key-section">
           <div class="key-info">
             <h3>
@@ -47,37 +81,6 @@
         <div class="key-section">
           <div class="key-info">
             <h3>
-              <i class="fas fa-lock"></i>
-              Private Key
-            </h3>
-            <div class="key-value" id="privkey-output">
-              Your private key will appear here
-              <button class="copy-button" data-clipboard-target="#privkey-output">
-                <i class="far fa-copy"></i>
-              </button>
-            </div>
-          </div>
-          <div class="qr-code" id="private-qr"></div>
-        </div>
-
-        <div class="key-section">
-          <div class="key-info">
-            <h3>
-              <i class="fas fa-seedling"></i>
-              Seed Phrase
-            </h3>
-            <div class="key-value" id="seed-output">
-              Your seed phrase will appear here
-              <button class="copy-button" data-clipboard-target="#seed-output">
-                <i class="far fa-copy"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="key-section">
-          <div class="key-info">
-            <h3>
               <i class="fas fa-fingerprint"></i>
               Elrond Address
             </h3>
@@ -90,6 +93,8 @@
           </div>
           <div class="qr-code" id="elrond-qr"></div>
         </div>
+
+        
 
         <div class="action-buttons">
           <button id="generate" class="button button-primary">
@@ -137,6 +142,21 @@
           <div class="key-info">
             <h3>
               <i class="fas fa-fingerprint"></i>
+              Generated Public Key
+            </h3>
+            <div class="key-value" id="key-generated">
+              Generated Public key will appear here
+              <button class="copy-button" data-clipboard-target="#key-generated">
+                <i class="far fa-copy"></i>
+              </button>
+            </div>
+          </div>
+          <div class="qr-code" id="key-qr-generated"></div>
+        </div>
+        <div class="key-section">
+          <div class="key-info">
+            <h3>
+              <i class="fas fa-fingerprint"></i>
               Generated Elrond Address
             </h3>
             <div class="key-value" id="elrond-generated">
@@ -176,6 +196,21 @@
           <div class="key-info">
             <h3>
               <i class="fas fa-fingerprint"></i>
+              Recovered Public key
+            </h3>
+            <div class="key-value" id="key-recovered">
+              Recovered Public address will appear here
+              <button class="copy-button" data-clipboard-target="#elrond-recovered">
+                <i class="far fa-copy"></i>
+              </button>
+            </div>
+          </div>
+          <div class="qr-code" id="key-qr-recovered"></div>
+        </div>
+        <div class="key-section">
+          <div class="key-info">
+            <h3>
+              <i class="fas fa-fingerprint"></i>
               Recovered Elrond Address
             </h3>
             <div class="key-value" id="elrond-recovered">
@@ -201,27 +236,22 @@
     const generateContent = document.getElementById('generate-content');
     const retrieveContent = document.getElementById('retrieve');
 
-    // Add click handlers to both buttons
     generateTab.addEventListener('click', () => {
-      // Show generate content, hide retrieve content
       generateContent.style.display = 'block';
       retrieveContent.style.display = 'none';
 
-      // Update button active states
       generateTab.classList.add('active');
       retrieveTab.classList.remove('active');
     });
 
     retrieveTab.addEventListener('click', () => {
-      // Show retrieve content, hide generate content
+
       retrieveContent.style.display = 'block';
       generateContent.style.display = 'none';
 
-      // Update button active states
       retrieveTab.classList.add('active');
       generateTab.classList.remove('active');
     });
-    // Copy to clipboard functionality
     document.querySelectorAll('.copy-button').forEach(button => {
       button.addEventListener('click', () => {
         const text = button.parentElement.textContent.trim();
